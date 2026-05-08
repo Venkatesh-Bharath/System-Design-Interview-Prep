@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>System Design Interview Hub | 50+ Topics | Venkatesh Bharath</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (Free CDN) - ensures all icons work -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -135,7 +136,6 @@
             gap: 8px;
         }
 
-        /* Section Header */
         .section-header {
             display: flex;
             align-items: center;
@@ -185,7 +185,6 @@
             color: #6b7280;
         }
 
-        /* Topics Grid */
         .topics-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -223,14 +222,35 @@
             align-items: center;
             justify-content: center;
             font-size: 1.8rem;
-            color: #f59e0b;
             border: 1px solid #334155;
         }
+
+        /* Individual icon colors */
+        .topic-icon i { color: #f59e0b; }
+        .topic-icon i.fa-docker { color: #2496ed; }
+        .topic-icon i.fa-java { color: #f89820; }
+        .topic-icon i.fa-database { color: #60a5fa; }
+        .topic-icon i.fa-lock { color: #f87171; }
+        .topic-icon i.fa-sync-alt { color: #34d399; }
+        .topic-icon i.fa-cubes { color: #c084fc; }
+        .topic-icon i.fa-balance-scale { color: #fbbf24; }
+        .topic-icon i.fa-microchip { color: #ec489a; }
+        .topic-icon i.fa-code-branch { color: #a78bfa; }
+        .topic-icon i.fa-file-code { color: #6ee7b7; }
+        .topic-icon i.fa-project-diagram { color: #f472b6; }
+        .topic-icon i.fa-tasks { color: #38bdf8; }
+        .topic-icon i.fa-building { color: #fb923c; }
+        .topic-icon i.fa-layer-group { color: #a5f3fc; }
+        .topic-icon i.fa-chart-line { color: #4ade80; }
 
         .topic-info h3 {
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         .topic-info p {
@@ -239,26 +259,25 @@
         }
 
         .coming-soon {
-            opacity: 0.6;
-            cursor: default;
+            opacity: 0.7;
         }
 
         .coming-soon:hover {
-            transform: none;
-            border-color: #262b3a;
-            background: #11131c;
+            transform: translateY(-2px);
+            border-color: #f59e0b;
+            background: #141825;
         }
 
         .badge-coming {
             background: #2d3748;
             font-size: 0.6rem;
-            padding: 0.2rem 0.5rem;
+            padding: 0.2rem 0.6rem;
             border-radius: 20px;
-            margin-left: 0.5rem;
-            color: #9ca3af;
+            color: #fcd34d;
+            font-weight: normal;
+            letter-spacing: 0.3px;
         }
 
-        /* Footer */
         footer {
             margin-top: 3rem;
             text-align: center;
@@ -283,8 +302,8 @@
         <div class="hero-content">
             <div class="title-section">
                 <h1><i class="fas fa-microphone-alt"></i> System Design Interview <span style="color:#f59e0b;">Mastery</span></h1>
-                <p><i class="fas fa-brain"></i> 50+ Essential Topics • Architecture Patterns • Real-world Scenarios</p>
-                <p style="font-size:0.85rem; margin-top:0.5rem;"><i class="fas fa-code"></i> Cracking system design interviews — curated by industry experts</p>
+                <p><i class="fas fa-brain"></i> Essential Topics • Architecture Patterns • Real-world Scenarios</p>
+                <p style="font-size:0.85rem; margin-top:0.5rem;"><i class="fas fa-code"></i> Crack system design interviews — curated by industry experts</p>
             </div>
             <div class="dev-badge">
                 <div class="profile-img"><i class="fab fa-java"></i></div>
@@ -318,31 +337,32 @@
 </div>
 
 <script>
-    // Topics data with icons and status
+    // Topics data with correct FontAwesome icons (all icons will display properly)
     const topicsData = [
-        { name: "API Design", icon: "fa-plug", description: "REST, GraphQL, gRPC, HATEOAS, Versioning", status: "available", link: "API Design & Development.html" },
-        { name: "Availability & Reliability", icon: "fa-chart-line", description: "SLA, SLO, SLI, 9's, Redundancy", status: "coming", link: "#" },
-        { name: "Caching", icon: "fa-database", description: "Redis, Memcached, CDN, Cache strategies", status: "coming", link: "#" },
-        { name: "CAP Theorem", icon: "fa-project-diagram", description: "Consistency, Availability, Partition Tolerance", status: "coming", link: "#" },
-        { name: "Concurrency", icon: "fa-tasks", description: "Threads, Locks, Mutex, Deadlocks", status: "coming", link: "#" },
-        { name: "Cryptography", icon: "fa-lock", description: "Encryption, Hashing, JWT, TLS", status: "coming", link: "#" },
-        { name: "Databases", icon: "fa-server", description: "SQL, Indexing, Sharding, Replication", status: "coming", link: "#" },
-        { name: "Docker", icon: "fa-docker", description: "Containers, Images, Docker Compose", status: "coming", link: "#" },
-        { name: "Domain Driven Design", icon: "fa-building", description: "Bounded Context, Entities, Aggregates", status: "coming", link: "#" },
-        { name: "Kubernetes", icon: "fa-cubes", description: "Pods, Services, Deployments, Ingress", status: "coming", link: "#" },
-        { name: "Layering & Middleware", icon: "fa-layer-group", description: "OSI, Middleware patterns, ESB", status: "coming", link: "#" },
-        { name: "Load Balancing", icon: "fa-balance-scale", description: "Round Robin, Least Connections, Hashing", status: "coming", link: "#" },
-        { name: "Microservices", icon: "fa-microchip", description: "Service Mesh, API Gateway, Discovery", status: "coming", link: "#" },
-        { name: "NoSQL", icon: "fa-database", description: "Document, Key-Value, Columnar, Graph DBs", status: "coming", link: "#" },
-        { name: "Reactive Systems", icon: "fa-sync-alt", description: "Backpressure, Event-driven, Resilience", status: "coming", link: "#" },
-        { name: "SOA", icon: "fa-code-branch", description: "Service Oriented Architecture, ESB", status: "coming", link: "#" },
-        { name: "Software Architecture", icon: "fa-cubes", description: "Monolith, Hexagonal, Clean Architecture", status: "coming", link: "#" },
-        { name: "XML", icon: "fa-file-code", description: "XML Schema, Parsing, SOAP, XSLT", status: "coming", link: "#" }
+        { name: "API Design", icon: "fas fa-plug", description: "REST, GraphQL, gRPC, HATEOAS, Versioning", status: "available", link: "APIDesign.html" },
+        { name: "Availability & Reliability", icon: "fas fa-chart-line", description: "SLA, SLO, SLI, 9's, Redundancy", status: "coming", link: "#" },
+        { name: "Caching", icon: "fas fa-database", description: "Redis, Memcached, CDN, Cache strategies", status: "coming", link: "#" },
+        { name: "CAP Theorem", icon: "fas fa-project-diagram", description: "Consistency, Availability, Partition Tolerance", status: "coming", link: "#" },
+        { name: "Concurrency", icon: "fas fa-tasks", description: "Threads, Locks, Mutex, Deadlocks", status: "coming", link: "#" },
+        { name: "Cryptography", icon: "fas fa-lock", description: "Encryption, Hashing, JWT, TLS", status: "coming", link: "#" },
+        { name: "Databases", icon: "fas fa-server", description: "SQL, Indexing, Sharding, Replication", status: "coming", link: "#" },
+        { name: "Docker", icon: "fab fa-docker", description: "Containers, Images, Docker Compose", status: "coming", link: "#" },
+        { name: "Domain Driven Design", icon: "fas fa-building", description: "Bounded Context, Entities, Aggregates", status: "coming", link: "#" },
+        { name: "Kubernetes", icon: "fas fa-cubes", description: "Pods, Services, Deployments, Ingress", status: "coming", link: "#" },
+        { name: "Layering & Middleware", icon: "fas fa-layer-group", description: "OSI, Middleware patterns, ESB", status: "coming", link: "#" },
+        { name: "Load Balancing", icon: "fas fa-balance-scale", description: "Round Robin, Least Connections, Hashing", status: "coming", link: "#" },
+        { name: "Microservices", icon: "fas fa-microchip", description: "Service Mesh, API Gateway, Discovery", status: "coming", link: "#" },
+        { name: "NoSQL", icon: "fas fa-database", description: "Document, Key-Value, Columnar, Graph DBs", status: "coming", link: "#" },
+        { name: "Reactive Systems", icon: "fas fa-sync-alt", description: "Backpressure, Event-driven, Resilience", status: "coming", link: "#" },
+        { name: "SOA", icon: "fas fa-code-branch", description: "Service Oriented Architecture, ESB", status: "coming", link: "#" },
+        { name: "Software Architecture", icon: "fas fa-cubes", description: "Monolith, Hexagonal, Clean Architecture", status: "coming", link: "#" },
+        { name: "XML", icon: "fas fa-file-code", description: "XML Schema, Parsing, SOAP, XSLT", status: "coming", link: "#" }
     ];
 
-    // Filter function
+    const grid = document.getElementById("topicsGrid");
+    const searchInput = document.getElementById("searchInput");
+
     function renderTopics(filterText = "") {
-        const grid = document.getElementById("topicsGrid");
         if (!grid) return;
         
         const filterLower = filterText.toLowerCase();
@@ -357,25 +377,28 @@
             const card = document.createElement("a");
             card.className = `topic-card ${topic.status === "coming" ? "coming-soon" : ""}`;
             
-            if (topic.status === "available" && topic.link) {
+            if (topic.status === "available" && topic.link && topic.link !== "#") {
                 card.href = topic.link;
             } else {
                 card.href = "javascript:void(0)";
                 card.onclick = (e) => {
                     e.preventDefault();
-                    alert(`📘 "${topic.name}" topic is coming soon!\nStay tuned for detailed interview Q&A.`);
+                    alert(`📘 "${topic.name}" topic is coming soon!\nStay tuned for detailed interview Q&A with code examples.`);
                 };
             }
             
             const statusBadge = topic.status === "coming" ? '<span class="badge-coming">Soon</span>' : '';
             
+            // Icon HTML - using proper icon classes
+            const iconHtml = `<i class="${topic.icon}"></i>`;
+            
             card.innerHTML = `
                 <div class="topic-icon">
-                    <i class="fab ${topic.icon.includes("fa-") ? topic.icon : topic.icon}"></i>
+                    ${iconHtml}
                 </div>
                 <div class="topic-info">
-                    <h3>${topic.name} ${statusBadge}</h3>
-                    <p>${topic.description}</p>
+                    <h3>${escapeHtml(topic.name)} ${statusBadge}</h3>
+                    <p>${escapeHtml(topic.description)}</p>
                 </div>
             `;
             grid.appendChild(card);
@@ -399,65 +422,15 @@
         });
     }
     
-    // Fix icon classes for FontAwesome (some need fab vs fas)
-    document.addEventListener("DOMContentLoaded", () => {
-        renderTopics("");
-        
-        const searchInput = document.getElementById("searchInput");
-        if (searchInput) {
-            searchInput.addEventListener("input", (e) => {
-                renderTopics(e.target.value);
-            });
-        }
-        
-        // Adjust icons manually after render
-        const icons = document.querySelectorAll(".topic-icon i");
-        icons.forEach(icon => {
-            const classes = icon.className;
-            if (classes.includes("fa-docker")) {
-                icon.className = "fab fa-docker";
-            } else if (classes.includes("fa-java")) {
-                // skip
-            } else if (!classes.includes("fab") && !classes.includes("fas")) {
-                icon.className = "fas " + classes;
-            }
-        });
-    });
+    // Initial render
+    renderTopics("");
     
-    // Override for dynamic icons
-    const originalRender = renderTopics;
-    window.renderTopics = renderTopics;
+    // Search functionality
+    if (searchInput) {
+        searchInput.addEventListener("input", (e) => {
+            renderTopics(e.target.value);
+        });
+    }
 </script>
-
-<!-- Add custom style to fix Docker icon and others -->
-<style>
-    .topic-icon i.fa-docker {
-        color: #2496ed;
-    }
-    .topic-icon i.fa-database {
-        color: #60a5fa;
-    }
-    .topic-icon i.fa-lock {
-        color: #f87171;
-    }
-    .topic-icon i.fa-sync-alt {
-        color: #34d399;
-    }
-    .coming-soon {
-        cursor: pointer;
-    }
-    .topic-card {
-        transition: all 0.2s ease;
-    }
-    .badge-coming {
-        background: #2d3748;
-        font-size: 0.6rem;
-        padding: 0.2rem 0.6rem;
-        border-radius: 20px;
-        margin-left: 0.5rem;
-        color: #fcd34d;
-        font-weight: normal;
-    }
-</style>
 </body>
 </html>
