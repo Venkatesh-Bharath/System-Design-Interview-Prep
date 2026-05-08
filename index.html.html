@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>System Design Interview Hub | 50+ Topics | Venkatesh Bharath</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0c10;
+            font-family: 'Inter', sans-serif;
+            color: #e4e7eb;
+            line-height: 1.5;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1e1e2e; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #f59e0b; border-radius: 10px; }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 2rem 3rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #111827 100%);
+            border-radius: 2rem;
+            padding: 2rem 2rem 1.8rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(245,158,11,0.12) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .title-section h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, #fbbf24 70%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+        }
+
+        .title-section p {
+            color: #9ca3af;
+            margin-top: 0.6rem;
+            font-size: 1rem;
+        }
+
+        .dev-badge {
+            background: rgba(245, 158, 11, 0.15);
+            backdrop-filter: blur(8px);
+            padding: 0.7rem 1.5rem;
+            border-radius: 60px;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 500;
+        }
+
+        .dev-badge a {
+            color: #fbbf24;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .dev-badge a:hover {
+            color: white;
+            text-shadow: 0 0 6px #f59e0b;
+        }
+
+        .profile-img {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: white;
+            box-shadow: 0 0 0 3px rgba(245,158,11,0.3);
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1.8rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .stat-item {
+            background: #1a1f2e;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Section Header */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.8rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fde68a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-header h2 i {
+            color: #f59e0b;
+        }
+
+        .search-box {
+            background: #1a1f2e;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #2d3748;
+        }
+
+        .search-box i {
+            color: #9ca3af;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 0.9rem;
+            outline: none;
+            width: 200px;
+        }
+
+        .search-box input::placeholder {
+            color: #6b7280;
+        }
+
+        /* Topics Grid */
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .topic-card {
+            background: #11131c;
+            border-radius: 1.2rem;
+            border: 1px solid #262b3a;
+            padding: 1.3rem 1.2rem;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #e4e7eb;
+        }
+
+        .topic-card:hover {
+            border-color: #f59e0b;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px -8px rgba(245,158,11,0.2);
+            background: #141825;
+        }
+
+        .topic-icon {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #f59e0b;
+            border: 1px solid #334155;
+        }
+
+        .topic-info h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .topic-info p {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .coming-soon {
+            opacity: 0.6;
+            cursor: default;
+        }
+
+        .coming-soon:hover {
+            transform: none;
+            border-color: #262b3a;
+            background: #11131c;
+        }
+
+        .badge-coming {
+            background: #2d3748;
+            font-size: 0.6rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            margin-left: 0.5rem;
+            color: #9ca3af;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6b7280;
+            border-top: 1px solid #202433;
+            padding-top: 2rem;
+        }
+
+        @media (max-width: 700px) {
+            .container { padding: 1rem; }
+            .title-section h1 { font-size: 1.6rem; }
+            .topics-grid { grid-template-columns: 1fr; }
+            .hero-content { flex-direction: column; text-align: center; }
+            .dev-badge { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <div class="hero-content">
+            <div class="title-section">
+                <h1><i class="fas fa-microphone-alt"></i> System Design Interview <span style="color:#f59e0b;">Mastery</span></h1>
+                <p><i class="fas fa-brain"></i> 50+ Essential Topics • Architecture Patterns • Real-world Scenarios</p>
+                <p style="font-size:0.85rem; margin-top:0.5rem;"><i class="fas fa-code"></i> Cracking system design interviews — curated by industry experts</p>
+            </div>
+            <div class="dev-badge">
+                <div class="profile-img"><i class="fab fa-java"></i></div>
+                <div>
+                    <strong>Venkatesh Bharath</strong><br>
+                    <a href="https://www.youtube.com/@bskTrending" target="_blank"><i class="fab fa-youtube"></i> BSK Trending</a>
+                </div>
+            </div>
+        </div>
+        <div class="stats-row">
+            <div class="stat-item"><i class="fas fa-layer-group"></i> 18 Core Topics</div>
+            <div class="stat-item"><i class="fas fa-chart-line"></i> Interview Focused</div>
+            <div class="stat-item"><i class="fas fa-cloud-upload-alt"></i> API Design Available</div>
+            <div class="stat-item"><i class="fas fa-database"></i> System Design Roadmap</div>
+        </div>
+    </div>
+
+    <div class="section-header">
+        <h2><i class="fas fa-compass"></i> Explore System Design Topics</h2>
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Filter topics...">
+        </div>
+    </div>
+
+    <div class="topics-grid" id="topicsGrid"></div>
+
+    <footer>
+        <i class="fas fa-graduation-cap"></i> Master system design with real interview questions • <i class="fab fa-youtube"></i> Subscribe: Venkatesh Bharath / BSK Trending • New topics added weekly
+    </footer>
+</div>
+
+<script>
+    // Topics data with icons and status
+    const topicsData = [
+        { name: "API Design", icon: "fa-plug", description: "REST, GraphQL, gRPC, HATEOAS, Versioning", status: "available", link: "API Design & Development.html" },
+        { name: "Availability & Reliability", icon: "fa-chart-line", description: "SLA, SLO, SLI, 9's, Redundancy", status: "coming", link: "#" },
+        { name: "Caching", icon: "fa-database", description: "Redis, Memcached, CDN, Cache strategies", status: "coming", link: "#" },
+        { name: "CAP Theorem", icon: "fa-project-diagram", description: "Consistency, Availability, Partition Tolerance", status: "coming", link: "#" },
+        { name: "Concurrency", icon: "fa-tasks", description: "Threads, Locks, Mutex, Deadlocks", status: "coming", link: "#" },
+        { name: "Cryptography", icon: "fa-lock", description: "Encryption, Hashing, JWT, TLS", status: "coming", link: "#" },
+        { name: "Databases", icon: "fa-server", description: "SQL, Indexing, Sharding, Replication", status: "coming", link: "#" },
+        { name: "Docker", icon: "fa-docker", description: "Containers, Images, Docker Compose", status: "coming", link: "#" },
+        { name: "Domain Driven Design", icon: "fa-building", description: "Bounded Context, Entities, Aggregates", status: "coming", link: "#" },
+        { name: "Kubernetes", icon: "fa-cubes", description: "Pods, Services, Deployments, Ingress", status: "coming", link: "#" },
+        { name: "Layering & Middleware", icon: "fa-layer-group", description: "OSI, Middleware patterns, ESB", status: "coming", link: "#" },
+        { name: "Load Balancing", icon: "fa-balance-scale", description: "Round Robin, Least Connections, Hashing", status: "coming", link: "#" },
+        { name: "Microservices", icon: "fa-microchip", description: "Service Mesh, API Gateway, Discovery", status: "coming", link: "#" },
+        { name: "NoSQL", icon: "fa-database", description: "Document, Key-Value, Columnar, Graph DBs", status: "coming", link: "#" },
+        { name: "Reactive Systems", icon: "fa-sync-alt", description: "Backpressure, Event-driven, Resilience", status: "coming", link: "#" },
+        { name: "SOA", icon: "fa-code-branch", description: "Service Oriented Architecture, ESB", status: "coming", link: "#" },
+        { name: "Software Architecture", icon: "fa-cubes", description: "Monolith, Hexagonal, Clean Architecture", status: "coming", link: "#" },
+        { name: "XML", icon: "fa-file-code", description: "XML Schema, Parsing, SOAP, XSLT", status: "coming", link: "#" }
+    ];
+
+    // Filter function
+    function renderTopics(filterText = "") {
+        const grid = document.getElementById("topicsGrid");
+        if (!grid) return;
+        
+        const filterLower = filterText.toLowerCase();
+        const filtered = topicsData.filter(topic => 
+            topic.name.toLowerCase().includes(filterLower) || 
+            topic.description.toLowerCase().includes(filterLower)
+        );
+        
+        grid.innerHTML = "";
+        
+        filtered.forEach(topic => {
+            const card = document.createElement("a");
+            card.className = `topic-card ${topic.status === "coming" ? "coming-soon" : ""}`;
+            
+            if (topic.status === "available" && topic.link) {
+                card.href = topic.link;
+            } else {
+                card.href = "javascript:void(0)";
+                card.onclick = (e) => {
+                    e.preventDefault();
+                    alert(`📘 "${topic.name}" topic is coming soon!\nStay tuned for detailed interview Q&A.`);
+                };
+            }
+            
+            const statusBadge = topic.status === "coming" ? '<span class="badge-coming">Soon</span>' : '';
+            
+            card.innerHTML = `
+                <div class="topic-icon">
+                    <i class="fab ${topic.icon.includes("fa-") ? topic.icon : topic.icon}"></i>
+                </div>
+                <div class="topic-info">
+                    <h3>${topic.name} ${statusBadge}</h3>
+                    <p>${topic.description}</p>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+        
+        if (filtered.length === 0) {
+            grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:3rem; background:#11131c; border-radius:1.5rem;">
+                <i class="fas fa-search" style="font-size:2rem; color:#6b7280;"></i>
+                <p style="margin-top:1rem; color:#9ca3af;">No topics found matching "${escapeHtml(filterText)}"</p>
+            </div>`;
+        }
+    }
+    
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    // Fix icon classes for FontAwesome (some need fab vs fas)
+    document.addEventListener("DOMContentLoaded", () => {
+        renderTopics("");
+        
+        const searchInput = document.getElementById("searchInput");
+        if (searchInput) {
+            searchInput.addEventListener("input", (e) => {
+                renderTopics(e.target.value);
+            });
+        }
+        
+        // Adjust icons manually after render
+        const icons = document.querySelectorAll(".topic-icon i");
+        icons.forEach(icon => {
+            const classes = icon.className;
+            if (classes.includes("fa-docker")) {
+                icon.className = "fab fa-docker";
+            } else if (classes.includes("fa-java")) {
+                // skip
+            } else if (!classes.includes("fab") && !classes.includes("fas")) {
+                icon.className = "fas " + classes;
+            }
+        });
+    });
+    
+    // Override for dynamic icons
+    const originalRender = renderTopics;
+    window.renderTopics = renderTopics;
+</script>
+
+<!-- Add custom style to fix Docker icon and others -->
+<style>
+    .topic-icon i.fa-docker {
+        color: #2496ed;
+    }
+    .topic-icon i.fa-database {
+        color: #60a5fa;
+    }
+    .topic-icon i.fa-lock {
+        color: #f87171;
+    }
+    .topic-icon i.fa-sync-alt {
+        color: #34d399;
+    }
+    .coming-soon {
+        cursor: pointer;
+    }
+    .topic-card {
+        transition: all 0.2s ease;
+    }
+    .badge-coming {
+        background: #2d3748;
+        font-size: 0.6rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 20px;
+        margin-left: 0.5rem;
+        color: #fcd34d;
+        font-weight: normal;
+    }
+</style>
+</body>
+</html>
