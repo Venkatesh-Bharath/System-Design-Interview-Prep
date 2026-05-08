@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>API Interview Q&A | 50 Questions | Java Spring Boot | Venkatesh Bharath</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0c10;
+            font-family: 'Inter', sans-serif;
+            color: #e4e7eb;
+            line-height: 1.5;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1e1e2e; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #f59e0b; border-radius: 10px; }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1.8rem 3rem;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #111827 100%);
+            border-radius: 2rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(245,158,11,0.15) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .title-section h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+        }
+
+        .title-section p {
+            color: #9ca3af;
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .dev-badge {
+            background: rgba(245, 158, 11, 0.15);
+            backdrop-filter: blur(8px);
+            padding: 0.7rem 1.5rem;
+            border-radius: 60px;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 500;
+        }
+
+        .dev-badge a {
+            color: #fbbf24;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .dev-badge a:hover {
+            color: white;
+            text-shadow: 0 0 6px #f59e0b;
+        }
+
+        .profile-img {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: white;
+            box-shadow: 0 0 0 3px rgba(245,158,11,0.3);
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1.8rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .stat-item {
+            background: #1a1f2e;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .topic-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .topic-card {
+            background: #11131c;
+            border-radius: 1.5rem;
+            border: 1px solid #262b3a;
+            overflow: hidden;
+            transition: 0.2s;
+        }
+
+        .topic-card:hover {
+            border-color: #f59e0b;
+            box-shadow: 0 8px 25px -8px rgba(245,158,11,0.2);
+        }
+
+        .topic-header {
+            background: #0d0f17;
+            padding: 1.2rem 1.8rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1f2538;
+        }
+
+        .topic-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fde68a;
+            margin: 0;
+        }
+
+        .topic-header h2 i {
+            color: #f59e0b;
+        }
+
+        .toggle-icon {
+            color: #f59e0b;
+            font-size: 1.2rem;
+            transition: 0.2s;
+        }
+
+        .questions-container {
+            padding: 1.5rem 1.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            background: #0c0e16;
+        }
+
+        .qa-block {
+            background: #11151f;
+            border-radius: 1rem;
+            border-left: 4px solid #f59e0b;
+            overflow: hidden;
+        }
+
+        .question {
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 1rem 1.5rem;
+            background: #0f1320;
+            border-bottom: 1px solid #20273a;
+            display: flex;
+            gap: 12px;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+
+        .q-num {
+            background: rgba(245, 158, 11, 0.2);
+            padding: 0.2rem 0.75rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #fbbf24;
+            border: 1px solid #f59e0b40;
+        }
+
+        .answer {
+            padding: 1.2rem 1.5rem;
+        }
+
+        .answer table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: #0a0d14;
+            border-radius: 12px;
+            overflow: hidden;
+            font-size: 0.85rem;
+        }
+        .answer th, .answer td {
+            border: 1px solid #2d3748;
+            padding: 0.6rem 1rem;
+            text-align: left;
+        }
+        .answer th {
+            background: #1a2533;
+            color: #fcd34d;
+            font-weight: 600;
+        }
+        .answer td {
+            color: #cbd5e1;
+        }
+
+        .answer ul, .answer ol {
+            margin: 0.8rem 0;
+            padding-left: 1.5rem;
+        }
+        .answer li {
+            margin: 0.4rem 0;
+        }
+
+        .code-block {
+            background: #0a0e17;
+            border-radius: 12px;
+            margin-top: 1rem;
+            border: 1px solid #2d3748;
+            overflow-x: auto;
+        }
+        .code-header {
+            background: #1a1f2e;
+            padding: 0.4rem 1rem;
+            font-size: 0.7rem;
+            color: #9ca3af;
+            border-bottom: 1px solid #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Fira Code', monospace;
+        }
+        .code-header i {
+            color: #f59e0b;
+        }
+        pre {
+            margin: 0;
+            padding: 1rem;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        code {
+            font-family: 'Fira Code', monospace;
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6b7280;
+            border-top: 1px solid #202433;
+            padding-top: 2rem;
+        }
+
+        @media (max-width: 700px) {
+            .container { padding: 1rem; }
+            .topic-header h2 { font-size: 1.2rem; }
+            .questions-container { padding: 1rem; }
+            .title-section h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <div class="hero-content">
+            <div class="title-section">
+                <h1><i class="fas fa-code"></i> API Design & Development <span style="color:#f59e0b;">|</span> Java/Spring Boot</h1>
+                <p><i class="fas fa-microchip"></i> 50 real-world interview Q&A • Enterprise patterns • Production ready</p>
+            </div>
+            <div class="dev-badge">
+                <div class="profile-img"><i class="fab fa-java"></i></div>
+                <div>
+                    <strong>Venkatesh Bharath</strong><br>
+                    <a href="https://www.youtube.com/@bskTrending" target="_blank"><i class="fab fa-youtube"></i> BSK Trending</a>
+                </div>
+            </div>
+        </div>
+        <div class="stats-row">
+            <div class="stat-item"><i class="fas fa-check-circle" style="color:#10b981;"></i> 50 Expert Questions</div>
+            <div class="stat-item"><i class="fas fa-database"></i> Spring Boot + Microservices</div>
+            <div class="stat-item"><i class="fas fa-shield-alt"></i> Security & Best Practices</div>
+            <div class="stat-item"><i class="fas fa-chart-line"></i> Performance Focused</div>
+        </div>
+    </div>
+
+    <div class="topic-grid" id="qaRoot"></div>
+    <footer>
+        <i class="fas fa-graduation-cap"></i> Designed for Java Full Stack Developers • Real-time interview prep • <i class="fab fa-youtube"></i> Subscribe: Venkatesh Bharath / BSK Trending
+    </footer>
+</div>
+
+<script>
+    // Complete 50 Q&A Data - All topics with proper questions based on your exact list
+    const qaData = [
+        { 
+            topic: "API Design Fundamentals", 
+            icon: "fa-cogs", 
+            questions: [
+                { num: 1, q: "What is an API and what are its main purposes?", a: "An API (Application Programming Interface) allows two systems to communicate with each other.<br><br><strong>Example:</strong><br>• React UI calls Spring Boot API<br>• API fetches data from DB<br>• Returns JSON response<br><br><strong>Main purposes:</strong><br>• Communication between systems<br>• Data exchange<br>• Integration<br>• Reusability<br>• Decoupling frontend/backend", code: "GET /api/employees/101\n\nResponse:\n{\n  \"id\": 101,\n  \"name\": \"Venkatesh\"\n}" },
+                { num: 2, q: "Can you explain the difference between an API and a Web service?", a: "<table><tr><th>API</th><th>Web Service</th></tr><tr><td>General communication interface</td><td>Specifically works over network</td></tr><tr><td>Can be local or remote</td><td>Always remote</td></tr><tr><td>Supports many protocols</td><td>Mostly HTTP/SOAP</td></tr><tr><td>Example: Java Library API</td><td>REST/SOAP service</td></tr></table><br>All web services are APIs, but not all APIs are web services.", code: "// Local API: java.io.File API\n// Web service: https://api.example.com/users" },
+                { num: 3, q: "What are the principles of a RESTful API?", a: "<strong>REST principles:</strong><br>1. Stateless<br>2. Client-Server architecture<br>3. Uniform interface<br>4. Cacheable<br>5. Layered system<br>6. Resource-based URLs<br><br><strong>Good REST example:</strong>", code: "GET /employees\nGET /employees/1\nPOST /employees\nPUT /employees/1\nDELETE /employees/1" },
+                { num: 4, q: "How does a SOAP API differ from a REST API?", a: "<table><tr><th>SOAP</th><th>REST</th></tr><tr><td>XML only</td><td>JSON/XML</td></tr><tr><td>Heavyweight</td><td>Lightweight</td></tr><tr><td>Strict protocol</td><td>Architectural style</td></tr><tr><td>More secure</td><td>Faster</td></tr><tr><td>Uses WSDL</td><td>Uses OpenAPI/Swagger</td></tr></table><br>REST is mostly used in microservices today.", code: "SOAP: <soap:Envelope>...</soap:Envelope>\nREST: /api/orders/100" },
+                { num: 5, q: "What is an API endpoint?", a: "Endpoint is a specific URL exposed by API.<br><br>Example: <code>/api/orders/100</code><br><br>This endpoint returns order details.<br><br><strong>Spring Boot Example:</strong>", code: "@RestController\n@RequestMapping(\"/api/orders\")\npublic class OrderController {\n    @GetMapping(\"/{id}\")\n    public Order getOrder(@PathVariable Long id) {\n        return service.getOrder(id);\n    }\n}" },
+                { num: 6, q: "What are the common methods (HTTP verbs) used in a REST API, and what does each method do?", a: "<table><tr><th>Method</th><th>Purpose</th></tr><tr><td>GET</td><td>Fetch data</td></tr><tr><td>POST</td><td>Create</td></tr><tr><td>PUT</td><td>Full update</td></tr><tr><td>PATCH</td><td>Partial update</td></tr><tr><td>DELETE</td><td>Remove</td></tr></table>", code: "POST /employees\n→ Creates employee" },
+                { num: 7, q: "How do you version an API?", a: "<strong>Common methods:</strong><br><br><strong>URL Versioning:</strong><br><code>/api/v1/employees</code><br><code>/api/v2/employees</code><br><br><strong>Header Versioning:</strong><br><code>Accept: application/vnd.company.v2+json</code><br><br>Best practice: Use URL versioning for simplicity.", code: "/api/v1/employees\n/api/v2/employees" },
+                { num: 8, q: "What is idempotence in the context of API design, and why is it important?", a: "An operation producing same result even if called multiple times.<br><br><table><tr><th>Method</th><th>Idempotent</th></tr><tr><td>GET</td><td>Yes</td></tr><tr><td>PUT</td><td>Yes</td></tr><tr><td>DELETE</td><td>Yes</td></tr><tr><td>POST</td><td>No</td></tr></table><br>Important for retries in distributed systems.", code: "DELETE /employees/1\n\nCalling multiple times still results same state." },
+                { num: 9, q: "Can you explain what API rate limiting is and give an example of why it might be used?", a: "Restricts number of API requests.<br><br>• Example: 100 requests/minute<br><br><strong>Purpose:</strong><br>• Prevent abuse<br>• Avoid DDOS<br>• Control server load<br><br><strong>Implementation:</strong><br>• API Gateway<br>• Redis-based counters<br>• Bucket4j in Spring Boot", code: "Bucket bucket = Bucket4j.builder()\n    .addLimit(Bandwidth.simple(100, Duration.ofMinutes(1)))\n    .build();" },
+                { num: 10, q: "Describe the concept of OAuth in relation to API security.", a: "OAuth allows secure delegated access.<br><br>Example: Login using Google, Google provides access token<br><br><strong>Flow:</strong><br>1. User login<br>2. Authorization server issues token<br>3. Client uses token<br>4. Resource server validates token<br><br>Spring Security OAuth2 widely used.", code: "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." }
+            ]
+        },
+        { 
+            topic: "API Design Best Practices", 
+            icon: "fa-check-double", 
+            questions: [
+                { num: 11, q: "What strategies would you use to ensure the backward compatibility of an API?", a: "<strong>Strategies:</strong><br>• Never remove existing fields<br>• Add optional fields only<br>• Use versioning<br>• Avoid breaking response structure<br><br><strong>Bad example:</strong> Renaming 'fullName' to 'name' breaks existing clients.", code: "// Bad: Breaking change\n{ \"fullName\": \"Venkatesh\" }  →  { \"name\": \"Venkatesh\" }\n\n// Good: Add optional fields\n{ \"fullName\": \"Venkatesh\", \"middleName\": \"K\" }" },
+                { num: 12, q: "What are some common response codes that an API might return, and what do they signify?", a: "<table><tr><th>Code</th><th>Meaning</th></tr><tr><td>200</td><td>Success</td></tr><tr><td>201</td><td>Created</td></tr><tr><td>204</td><td>No Content</td></tr><tr><td>400</td><td>Bad Request</td></tr><tr><td>401</td><td>Unauthorized</td></tr><tr><td>403</td><td>Forbidden</td></tr><tr><td>404</td><td>Not Found</td></tr><tr><td>409</td><td>Conflict</td></tr><tr><td>500</td><td>Server Error</td></tr></table>", code: "@ResponseStatus(HttpStatus.CREATED)\npublic Employee create() {}" },
+                { num: 13, q: "How can you design an API to be easily consumable by clients?", a: "<strong>Best practices:</strong><br>• Consistent naming<br>• Proper status codes<br>• Pagination<br>• Filtering<br>• Clear documentation<br>• Standard JSON structure", code: "{\n  \"status\": \"SUCCESS\",\n  \"data\": [],\n  \"timestamp\": \"2026-05-08\"\n}" },
+                { num: 14, q: "When designing an API, how would you document it for end-users?", a: "Use Swagger/OpenAPI.<br><br>Spring Boot dependency:", code: "<dependency>\n    <groupId>org.springdoc</groupId>\n    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>\n    <version>2.5.0</version>\n</dependency>\n\n/swagger-ui.html" },
+                { num: 15, q: "What considerations might influence how you paginate API responses?", a: "Avoid returning huge data.<br><br>Example: <code>GET /employees?page=0&size=10</code><br><br>Spring Boot: <code>Page<Employee> findAll(Pageable pageable);</code><br><br>Benefits: Better performance, reduced memory, faster response.", code: "Page<Employee> page = repository.findAll(PageRequest.of(0, 10));" },
+                { num: 16, q: "What is HATEOAS, and how does it relate to API design?", a: "Hypermedia as Engine of Application State.<br><br>API response includes links for discoverability.", code: "{\n  \"id\": 1,\n  \"name\": \"Venkatesh\",\n  \"links\": [\n    { \"rel\": \"self\", \"href\": \"/employees/1\" }\n  ]\n}" },
+                { num: 17, q: "How would you handle localization and internationalization in APIs?", a: "Use <code>Accept-Language</code> header.<br><br>Example: <code>Accept-Language: fr</code><br><br>Spring Boot: <code>spring.messages.basename=messages</code>", code: "@GetMapping(\"/greeting\")\npublic String greeting(@RequestHeader(\"Accept-Language\") Locale locale) {\n    return messageSource.getMessage(\"welcome\", null, locale);\n}" },
+                { num: 18, q: "What are some best practices for designing error responses in an API?", a: "Standard error structure:<br><br><strong>Global Exception Handler:</strong>", code: "{\n  \"timestamp\": \"2026-05-08\",\n  \"status\": 400,\n  \"error\": \"Validation Failed\",\n  \"message\": \"Email is required\"\n}\n\n@RestControllerAdvice\npublic class GlobalExceptionHandler {\n    @ExceptionHandler(Exception.class)\n    public ResponseEntity<?> handle(Exception ex) {\n        return ResponseEntity.badRequest().body(ex.getMessage());\n    }\n}" },
+                { num: 19, q: "What are the benefits of using API Gateways?", a: "Used in microservices.<br><br><strong>Benefits:</strong><br>• Authentication<br>• Rate limiting<br>• Routing<br>• Load balancing<br>• Logging<br>• Monitoring<br><br>Examples: Spring Cloud Gateway, Kong, Apigee", code: "spring.cloud.gateway.routes[0].id=user-service\nspring.cloud.gateway.routes[0].uri=lb://USER-SERVICE" },
+                { num: 20, q: "How would you approach handling file uploads in an API design?", a: "Use multipart API.<br><br><strong>Best practices:</strong><br>• File size validation<br>• Virus scanning<br>• Store in S3/cloud storage", code: "@PostMapping(\"/upload\")\npublic String upload(@RequestParam MultipartFile file) {\n    return file.getOriginalFilename();\n}" }
+            ]
+        },
+        { 
+            topic: "API Performance and Scalability", 
+            icon: "fa-tachometer-alt", 
+            questions: [
+                { num: 21, q: "How can caching be incorporated into API design to improve performance?", a: "Improves performance.<br><br>Methods: Redis, HTTP Cache headers, Spring Cache", code: "@Cacheable(\"employees\")\npublic Employee getEmployee(Long id) {\n    return repo.findById(id).orElseThrow();\n}" },
+                { num: 22, q: "What are some strategies for dealing with high traffic volumes in a scalable API?", a: "• Load balancing<br>• Caching<br>• Async processing<br>• DB indexing<br>• CDN<br>• Horizontal scaling<br>• Kafka queues", code: "// Kubernetes HPA\ntargetAverageUtilization: 70" },
+                { num: 23, q: "How does connection pooling work and how can it benefit API performance?", a: "Reuses DB connections.<br><br>Benefits: Faster performance, reduced DB overhead.<br><br>Spring Boot uses HikariCP by default.", code: "spring.datasource.hikari.maximum-pool-size=20" },
+                { num: 24, q: "When is it appropriate to use synchronous vs asynchronous processing in an API?", a: "<strong>Synchronous</strong>: Client waits (fetch employee).<br><strong>Asynchronous</strong>: Background processing (email sending).", code: "@Async\npublic CompletableFuture<Void> sendMail() {\n    // background\n}" },
+                { num: 25, q: "What are some challenges of maintaining an API at scale?", a: "• Versioning<br>• Monitoring<br>• Security<br>• Distributed tracing<br>• Backward compatibility<br>• High traffic<br>• Database bottlenecks<br><br>Tools: Prometheus, Grafana, ELK, Zipkin", code: "// Micrometer metrics\nCounter.builder(\"api.requests\").register(meterRegistry).increment();" }
+            ]
+        },
+        { 
+            topic: "API Security Considerations", 
+            icon: "fa-shield-alt", 
+            questions: [
+                { num: 26, q: "What are common security concerns when designing an API?", a: "• SQL Injection<br>• XSS<br>• CSRF<br>• Broken Authentication<br>• DDOS<br>• Token theft", code: "// Use HTTPS, CSRF tokens, rate limiting" },
+                { num: 27, q: "How do you prevent injection attacks in API design?", a: "Use Prepared statements, JPA, Input validation.<br><br>Bad: <code>\"SELECT * FROM users WHERE name='\" + name + \"'\"</code><br><br>Good:", code: "@Repository\npublic interface UserRepository extends JpaRepository<User, Long> {\n    User findByName(String name);\n}" },
+                { num: 28, q: "Can you explain what CORS is and why it's important in API design?", a: "Cross-Origin Resource Sharing.<br><br>Allows frontend from another domain.", code: "@CrossOrigin(origins = \"http://localhost:3000\")\n@RestController\npublic class MyController {}" },
+                { num: 29, q: "What is the purpose of an API key?", a: "Identifies client application.<br><br>Used for:<br>• Authentication<br>• Rate limiting<br>• Tracking usage", code: "X-API-Key: abc123def456" },
+                { num: 30, q: "How would you implement authentication and authorization in APIs?", a: "<table><tr><th>Authentication</th><th>Authorization</th></tr><tr><td>Who are you?</td><td>What can you access?</td></tr></table><br>Implementation: JWT, OAuth2, Spring Security", code: "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\n@PreAuthorize(\"hasRole('ADMIN')\")" }
+            ]
+        },
+        { 
+            topic: "Advanced API Design Concepts", 
+            icon: "fa-microchip", 
+            questions: [
+                { num: 31, q: "What is the role of an API Gateway in microservices architecture?", a: "Central entry point.<br><br>Responsibilities: Routing, Auth, Logging, Rate limiting, Load balancing", code: "spring.cloud.gateway.routes[0].uri=lb://ORDER-SERVICE" },
+                { num: 32, q: "Can you explain the concept of a headless API?", a: "Backend only provides APIs.<br><br>Frontend can be: React, Mobile, Angular.<br>Popular in Headless CMS, Ecommerce", code: "// REST API only, no coupled frontend" },
+                { num: 33, q: "How do GraphQL APIs differ from traditional RESTful APIs?", a: "<table><tr><th>REST</th><th>GraphQL</th></tr><tr><td>Multiple endpoints</td><td>Single endpoint</td></tr><tr><td>Over-fetching possible</td><td>Exact data</td></tr></table>", code: "{\n  employee(id: 1) {\n    name\n    email\n  }\n}" },
+                { num: 34, q: "What is gRPC and how might it be used in API design?", a: "High-performance RPC framework by Google.<br><br>Uses HTTP/2, Protocol Buffers.<br>Faster than REST. Used in internal microservice communication.", code: "service EmployeeService {\n  rpc GetEmployee (EmployeeRequest) returns (EmployeeResponse) {}\n}" },
+                { num: 35, q: "How can WebSockets enhance API functionalities?", a: "Enables real-time communication.<br><br>Use cases: Chat apps, Stock market, Notifications", code: "@EnableWebSocketMessageBroker\npublic class WebSocketConfig implements WebSocketMessageBrokerConfigurer {}" }
+            ]
+        },
+        { 
+            topic: "API Development and Testing", 
+            icon: "fa-vial", 
+            questions: [
+                { num: 36, q: "What tools or frameworks do you use to develop and test APIs?", a: "Tools: Postman, Swagger, Insomnia, JMeter, WireMock<br><br>Frameworks: Spring Boot, Spring Security, JUnit5, Mockito", code: "@SpringBootTest\n@AutoConfigureMockMvc\nclass EmployeeControllerTest { }" },
+                { num: 37, q: "How would you test for API performance and what metrics would you track?", a: "Tools: JMeter, Gatling<br><br>Metrics: TPS, Response time, Error rate, CPU usage, Memory", code: "// Gatling simulation\nscenario(\"Get Employee\").exec(http(\"request\").get(\"/employees/1\"))" },
+                { num: 38, q: "What is contract testing in the context of API development?", a: "Ensures producer/consumer compatibility.<br><br>Tool: Pact. Important in microservices.", code: "@Pact(consumer = \"EmployeeConsumer\")\npublic RequestResponsePact createPact(PactDslWithProvider builder) {}" },
+                { num: 39, q: "Describe the mocking of APIs for development and testing purposes.", a: "Simulate APIs before actual implementation.<br><br>Tools: WireMock, Mockoon, Postman Mock Server", code: "stubFor(get(urlEqualTo(\"/api/employees/1\"))\n    .willReturn(aResponse().withBody(\"{\\\"id\\\":1}\")));" },
+                { num: 40, q: "How can automated API testing improve the software development lifecycle?", a: "Benefits: Faster releases, Regression prevention, CI/CD integration.", code: "given().when().get(\"/employees\").then().statusCode(200);" }
+            ]
+        },
+        { 
+            topic: "API Data Management", 
+            icon: "fa-database", 
+            questions: [
+                { num: 41, q: "How do you handle large volumes of data in API responses?", a: "Methods: Pagination, Streaming, Compression, Async download", code: "@GetMapping(value = \"/logs/stream\", produces = MediaType.APPLICATION_JSON_VALUE)\npublic Stream<LogEntry> streamLogs() { }" },
+                { num: 42, q: "How can an API be designed to support multiple data formats?", a: "Support JSON, XML, CSV.<br><br>Spring Boot: produces attribute", code: "@GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})" },
+                { num: 43, q: "What are best practices for managing sensitive data through an API?", a: "• Encrypt data<br>• HTTPS<br>• Mask sensitive fields<br>• Never expose passwords<br>• JWT expiration", code: "@JsonIgnore\nprivate String password;" },
+                { num: 44, q: "In an API, how do you approach filtering and sorting of data?", a: "Example: <code>GET /employees?department=IT&sort=name</code><br><br>Spring JPA:", code: "Sort.by(\"name\").descending()" },
+                { num: 45, q: "Can you discuss strategies for transaction management within API endpoints?", a: "Use <code>@Transactional</code><br><br>Ensures rollback on failure.", code: "@Transactional(rollbackFor = Exception.class)\npublic void transferMoney() { }" }
+            ]
+        },
+        { 
+            topic: "API Specification and Standards", 
+            icon: "fa-file-code", 
+            questions: [
+                { num: 46, q: "Are you familiar with any API specification formats and what benefits do they provide?", a: "Popular: OpenAPI/Swagger, RAML, AsyncAPI.<br><br>Benefits: Documentation, Client generation, Standardization", code: "openapi: 3.0.0\ninfo:\n  title: Employee API" },
+                { num: 47, q: "How do you approach the design of an API to comply with industry standards?", a: "Follow: REST conventions, OpenAPI, OAuth2, HTTPS, RFC standards", code: "// RFC 7807 Problem Details\n{\n  \"type\": \"https://api.example.com/errors/invalid-param\"\n}" },
+                { num: 48, q: "How do you foresee OpenAPI/Swagger specifications evolving, and how do they impact API design?", a: "Future: AI-based API generation, Better testing automation, Contract-first development.<br><br>Impact: Faster development, better collaboration", code: "// OpenAPI 3.1 supports JSON Schema 2020-12" },
+                { num: 49, q: "How can APIs be designed with interoperability in mind?", a: "Ensure: Standard formats, Proper versioning, Open standards, Language-independent contracts", code: "Accept: application/vnd.company.employee.v2+json" },
+                { num: 50, q: "How does a standard like JSON:API influence the way you structure response payloads?", a: "Provides standard response structure.<br><br>Benefits: Consistency, Easier client integration, Standard pagination/errors", code: "{\n  \"data\": {\n    \"type\": \"employee\",\n    \"id\": \"1\",\n    \"attributes\": {\n      \"name\": \"Venkatesh\"\n    }\n  }\n}" }
+            ]
+        }
+    ];
+
+    const root = document.getElementById('qaRoot');
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function renderAll() {
+        root.innerHTML = '';
+        
+        qaData.forEach(topic => {
+            const card = document.createElement('div');
+            card.className = 'topic-card';
+            
+            const header = document.createElement('div');
+            header.className = 'topic-header';
+            header.innerHTML = `<h2><i class="fas ${topic.icon}"></i> ${topic.topic}</h2><i class="fas fa-chevron-down toggle-icon"></i>`;
+            
+            const container = document.createElement('div');
+            container.className = 'questions-container';
+            container.style.display = 'block';
+
+            topic.questions.forEach(qa => {
+                const block = document.createElement('div');
+                block.className = 'qa-block';
+                
+                block.innerHTML = `
+                    <div class="question"><span class="q-num">${qa.num}</span> <strong>${escapeHtml(qa.q)}</strong></div>
+                    <div class="answer">
+                        ${qa.a}
+                        <div class="code-block">
+                            <div class="code-header"><i class="fas fa-terminal"></i> Code Example</div>
+                            <pre><code>${escapeHtml(qa.code)}</code></pre>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(block);
+            });
+            
+            card.appendChild(header);
+            card.appendChild(container);
+            
+            header.addEventListener('click', () => {
+                const isVisible = container.style.display !== 'none';
+                container.style.display = isVisible ? 'none' : 'block';
+                const icon = header.querySelector('.toggle-icon');
+                icon.className = isVisible ? 'fas fa-chevron-right toggle-icon' : 'fas fa-chevron-down toggle-icon';
+            });
+            
+            root.appendChild(card);
+        });
+    }
+
+    renderAll();
+</script>
+</body>
+</html>
