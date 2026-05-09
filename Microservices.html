@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Microservices Interview Q&A | 60 Questions | Java Spring Boot | Venkatesh Bharath</title>
+    <!-- Font Awesome 6 (Free CDN) - ensures all icons work including Docker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0c10;
+            font-family: 'Inter', sans-serif;
+            color: #e4e7eb;
+            line-height: 1.5;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1e1e2e; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #8b5cf6; border-radius: 10px; }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1.8rem 3rem;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #111827 100%);
+            border-radius: 2rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(139,92,246,0.15) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .title-section h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, #a78bfa 70%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+        }
+
+        .title-section p {
+            color: #9ca3af;
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .dev-badge {
+            background: rgba(139, 92, 246, 0.15);
+            backdrop-filter: blur(8px);
+            padding: 0.7rem 1.5rem;
+            border-radius: 60px;
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 500;
+        }
+
+        .dev-badge a {
+            color: #a78bfa;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .dev-badge a:hover {
+            color: white;
+            text-shadow: 0 0 6px #8b5cf6;
+        }
+
+        .profile-img {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #8b5cf6, #ec489a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: white;
+            box-shadow: 0 0 0 3px rgba(139,92,246,0.3);
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1.8rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .stat-item {
+            background: #1a1f2e;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .topic-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .topic-card {
+            background: #11131c;
+            border-radius: 1.5rem;
+            border: 1px solid #262b3a;
+            overflow: hidden;
+            transition: 0.2s;
+        }
+
+        .topic-card:hover {
+            border-color: #8b5cf6;
+            box-shadow: 0 8px 25px -8px rgba(139,92,246,0.2);
+        }
+
+        .topic-header {
+            background: #0d0f17;
+            padding: 1.2rem 1.8rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1f2538;
+        }
+
+        .topic-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #c4b5fd;
+            margin: 0;
+        }
+
+        .topic-header h2 i {
+            color: #8b5cf6;
+        }
+
+        /* Specific icon colors */
+        .topic-header h2 i.fa-docker {
+            color: #2496ed;
+        }
+        .topic-header h2 i.fa-cubes {
+            color: #326ce5;
+        }
+
+        .toggle-icon {
+            color: #8b5cf6;
+            font-size: 1.2rem;
+            transition: 0.2s;
+        }
+
+        .questions-container {
+            padding: 1.5rem 1.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            background: #0c0e16;
+        }
+
+        .qa-block {
+            background: #11151f;
+            border-radius: 1rem;
+            border-left: 4px solid #8b5cf6;
+            overflow: hidden;
+        }
+
+        .question {
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 1rem 1.5rem;
+            background: #0f1320;
+            border-bottom: 1px solid #20273a;
+            display: flex;
+            gap: 12px;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+
+        .q-num {
+            background: rgba(139, 92, 246, 0.2);
+            padding: 0.2rem 0.75rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #c4b5fd;
+            border: 1px solid #8b5cf640;
+        }
+
+        .answer {
+            padding: 1.2rem 1.5rem;
+        }
+
+        .answer table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: #0a0d14;
+            border-radius: 12px;
+            overflow: hidden;
+            font-size: 0.85rem;
+        }
+        .answer th, .answer td {
+            border: 1px solid #2d3748;
+            padding: 0.6rem 1rem;
+            text-align: left;
+        }
+        .answer th {
+            background: #1a2533;
+            color: #c4b5fd;
+            font-weight: 600;
+        }
+        .answer td {
+            color: #cbd5e1;
+        }
+
+        .answer ul, .answer ol {
+            margin: 0.8rem 0;
+            padding-left: 1.5rem;
+        }
+        .answer li {
+            margin: 0.4rem 0;
+        }
+
+        .code-block {
+            background: #0a0e17;
+            border-radius: 12px;
+            margin-top: 1rem;
+            border: 1px solid #2d3748;
+            overflow-x: auto;
+        }
+        .code-header {
+            background: #1a1f2e;
+            padding: 0.4rem 1rem;
+            font-size: 0.7rem;
+            color: #9ca3af;
+            border-bottom: 1px solid #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Fira Code', monospace;
+        }
+        .code-header i {
+            color: #8b5cf6;
+        }
+        pre {
+            margin: 0;
+            padding: 1rem;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        code {
+            font-family: 'Fira Code', monospace;
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6b7280;
+            border-top: 1px solid #202433;
+            padding-top: 2rem;
+        }
+
+        @media (max-width: 700px) {
+            .container { padding: 1rem; }
+            .topic-header h2 { font-size: 1.2rem; }
+            .questions-container { padding: 1rem; }
+            .title-section h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <div class="hero-content">
+            <div class="title-section">
+                <h1><i class="fas fa-microchip"></i> Microservices Interview <span style="color:#8b5cf6;">Mastery</span></h1>
+                <p><i class="fas fa-cloud-upload-alt"></i> 60 real-world Q&A • Spring Boot • Docker • Kubernetes • Design Patterns</p>
+                <p style="font-size:0.85rem; margin-top:0.5rem;"><i class="fas fa-code"></i> Java Full Stack Developer perspective — Production ready explanations</p>
+            </div>
+            <div class="dev-badge">
+                <div class="profile-img"><i class="fab fa-java"></i></div>
+                <div>
+                    <strong>Venkatesh Bharath</strong><br>
+                    <a href="https://www.youtube.com/@bskTrending" target="_blank"><i class="fab fa-youtube"></i> BSK Trending</a>
+                </div>
+            </div>
+        </div>
+        <div class="stats-row">
+            <div class="stat-item"><i class="fas fa-check-circle" style="color:#10b981;"></i> 60 Expert Questions</div>
+            <div class="stat-item"><i class="fas fa-cloud-upload-alt"></i> Spring Boot + Cloud</div>
+            <div class="stat-item"><i class="fab fa-docker"></i> Docker & K8s</div>
+            <div class="stat-item"><i class="fas fa-chart-line"></i> Production Patterns</div>
+        </div>
+    </div>
+
+    <div class="topic-grid" id="qaRoot"></div>
+    <footer>
+        <i class="fas fa-graduation-cap"></i> Master Microservices with real interview questions • <i class="fab fa-youtube"></i> Subscribe: Venkatesh Bharath / BSK Trending
+    </footer>
+</div>
+
+<script>
+    // Complete 60 Microservices Q&A Data - ALL 60 QUESTIONS from your input
+    const topicsData = [
+        { 
+            topic: "Microservices Fundamentals", 
+            icon: "fas fa-microchip", 
+            startNum: 1,
+            questions: [
+                { q: "What is a microservice and how does it differ from a monolithic architecture?", a: "<strong>Microservice</strong> is a small independent service that performs one business functionality.<br><br><strong>Monolithic Architecture:</strong><br>• Entire application is developed as a single project<br>• One codebase and one deployment<br>• Changes in one module may affect the whole application<br><br><strong>Microservices Architecture:</strong><br>• Application is split into multiple small services<br>• Each service can be developed and deployed independently<br>• Better scalability and maintenance<br><br><strong>Example:</strong><br>User Service | Payment Service | Order Service | Notification Service", code: "// Monolith: Single JAR with all modules\njava -jar app.jar\n\n// Microservices: Multiple independent services\njava -jar user-service.jar\njava -jar order-service.jar\njava -jar payment-service.jar" },
+                { q: "Can you describe the principles behind the microservices architecture?", a: "<strong>Main principles:</strong><br>1. Single Responsibility<br>2. Independent Deployment<br>3. Loose Coupling<br>4. High Cohesion<br>5. Database per Service<br>6. Fault Isolation<br>7. Scalability<br>8. Automation using CI/CD", code: "// Each service has its own database\nuser-service → user_db\norder-service → order_db\npayment-service → payment_db" },
+                { q: "What are the main benefits of using microservices?", a: "• Independent deployment<br>• Better scalability<br>• Faster development<br>• Technology flexibility<br>• Fault isolation<br>• Easier maintenance<br>• Better team ownership", code: "// Different services can use different tech stacks\nUserService: Spring Boot + MySQL\nOrderService: Quarkus + PostgreSQL\nPaymentService: Node.js + MongoDB" },
+                { q: "What are some of the challenges you might face when designing a microservices architecture?", a: "• Distributed system complexity<br>• Network latency<br>• Service communication issues<br>• Data consistency<br>• Monitoring complexity<br>• Deployment management<br>• Security handling", code: "// Challenges require patterns like:\nCircuit Breaker, Saga, API Gateway, Service Discovery" }
+            ]
+        },
+        { 
+            topic: "Communication & Design Patterns", 
+            icon: "fas fa-code-branch", 
+            startNum: 5,
+            questions: [
+                { q: "How do microservices communicate with each other?", a: "<strong>Two ways:</strong><br><br><strong>Synchronous Communication</strong><br>• REST API<br>• gRPC<br><br><strong>Asynchronous Communication</strong><br>• Kafka<br>• RabbitMQ<br>• ActiveMQ", code: "@RestController\npublic class UserController {\n    @GetMapping(\"/users/{id}\")\n    public String getUser(@PathVariable int id) {\n        return \"User Found\";\n    }\n}\n\n// Kafka Example\nkafkaTemplate.send(\"payment-topic\", message);" },
+                { q: "What is Domain-Driven Design (DDD) and how is it related to microservices?", a: "DDD divides application into business domains.<br>Each bounded context can become one microservice.<br><br><strong>Example:</strong><br>Payment Domain → Payment Service<br>Order Domain → Order Service<br>Customer Domain → Customer Service", code: "// Bounded Context boundaries\nOrderContext { Order, OrderItem }\nPaymentContext { Payment, Transaction }\nCustomerContext { Customer, Address }" },
+                { q: "How would you decompose a monolithic application into microservices?", a: "<strong>Steps:</strong><br>1. Identify business modules<br>2. Separate database responsibilities<br>3. Create independent APIs<br>4. Move module gradually<br>5. Use API Gateway<br>6. Add service discovery<br><br><strong>Example - E-commerce Monolith:</strong><br>User Module, Order Module, Payment Module<br><br><strong>Convert into:</strong><br>User Service, Order Service, Payment Service", code: "// Strangler Fig Pattern\nRoute /api/users/* → User Service\nRoute /api/orders/* → Order Service\nRoute /api/payments/* → Payment Service" },
+                { q: "What strategies can be employed to manage transactions across multiple microservices?", a: "<strong>Main strategies:</strong><br>• Saga Pattern<br>• Event-driven communication<br>• Compensation transactions<br>• Eventual consistency<br><br><strong>Example:</strong><br>Order Service → Payment Service → Inventory Service<br>If payment fails:<br>Cancel order<br>Restore inventory", code: "// Saga Pattern - Choreography\nOrderCreated event → PaymentService processes\nPaymentSuccess event → InventoryService updates\nPaymentFailed event → OrderService cancels" },
+                { q: "Explain the concept of Bounded Context in microservices architecture.", a: "Bounded Context means each service manages its own business logic and data.<br><br><strong>Example:</strong><br>Order Service should not directly manage Payment database.", code: "// Order Service has its own Order model\nclass Order { Long id, String status, List<OrderItem> items }\n\n// Payment Service has its own Payment model\nclass Payment { Long id, BigDecimal amount, String transactionId }" },
+                { q: "How do you handle failure in a microservice?", a: "<strong>Common approaches:</strong><br>• Retry<br>• Timeout<br>• Circuit Breaker<br>• Fallback methods<br>• Bulkhead pattern<br><br><strong>Resilience4j Example:</strong>", code: "@CircuitBreaker(name = \"paymentService\", fallbackMethod = \"fallback\")\npublic String callPayment() {\n    return restTemplate.getForObject(url, String.class);\n}\n\npublic String fallback(Exception ex) {\n    return \"Service Down\";\n}" },
+                { q: "What design patterns are commonly used in microservices architectures?", a: "<strong>Common patterns:</strong><br>• API Gateway<br>• Circuit Breaker<br>• Saga Pattern<br>• Service Discovery<br>• CQRS<br>• Event Sourcing<br>• Retry Pattern<br>• Bulkhead Pattern", code: "// Spring Cloud Patterns\n@EnableDiscoveryClient\n@EnableCircuitBreaker\n@EnableFeignClients" },
+                { q: "Can you describe the API Gateway pattern and its benefits?", a: "API Gateway acts as a single entry point for all clients.<br><br><strong>Benefits</strong><br>• Authentication<br>• Routing<br>• Rate limiting<br>• Logging<br>• Security<br><br><strong>Example:</strong><br>Netflix Zuul or Spring Cloud Gateway.", code: "spring:\n  cloud:\n    gateway:\n      routes:\n        - id: user-service\n          uri: lb://USER-SERVICE\n          predicates: Path=/api/users/**" },
+                { q: "Explain the Circuit Breaker pattern. Why is it important in a microservices ecosystem?", a: "Circuit Breaker prevents continuous calls to failed services.<br><br><strong>States</strong><br>1. Closed<br>2. Open<br>3. Half Open<br><br><strong>Benefits</strong><br>• Prevent cascading failures<br>• Improve stability<br>• Faster recovery", code: "@CircuitBreaker(name = \"userService\", fallbackMethod = \"fallback\")\npublic String getUser(Long id) {\n    return userClient.getUser(id);\n}" }
+            ]
+        },
+        { 
+            topic: "Service Mesh & Deployment", 
+            icon: "fas fa-cubes", 
+            startNum: 14,
+            questions: [
+                { q: "What is a Service Mesh? How does it aid in managing microservices?", a: "Service Mesh manages communication between services.<br><br><strong>Features</strong><br>• Traffic management<br>• Security<br>• Monitoring<br>• Load balancing<br><br><strong>Tools</strong><br>Istio, Linkerd", code: "# Istio Virtual Service\nkind: VirtualService\nspec:\n  hosts:\n  - reviews\n  http:\n  - route:\n    - destination:\n        host: reviews\n        subset: v1\n      weight: 90\n    - destination:\n        host: reviews\n        subset: v2\n      weight: 10" },
+                { q: "How do you ensure data consistency across microservices?", a: "<strong>Methods:</strong><br>• Saga Pattern<br>• Eventual consistency<br>• Kafka events<br>• Distributed transactions avoided mostly", code: "// Eventual consistency with Kafka\n@EventListener\npublic void handleOrderCreated(OrderCreatedEvent event) {\n    kafkaTemplate.send(\"order-events\", event);\n}" },
+                { q: "Discuss the strategies you would use for testing microservices.", a: "<strong>Testing types:</strong><br>• Unit Testing<br>• Integration Testing<br>• API Testing<br>• Contract Testing<br>• End-to-End Testing<br><br><strong>JUnit Example:</strong>", code: "@Test\nvoid testAddition() {\n    assertEquals(4, 2 + 2);\n}\n\n// Contract test with Pact\n@Pact(consumer = \"OrderConsumer\")\npublic RequestResponsePact createPact(PactDslWithProvider builder) { }" },
+                { q: "How can you prevent configuration drift in a microservices environment?", a: "Use centralized configuration.<br><br><strong>Tools</strong><br>• Spring Cloud Config<br>• Kubernetes ConfigMap<br>• Vault", code: "# application.yml in Config Server\nspring:\n  cloud:\n    config:\n      server:\n        git:\n          uri: https://github.com/config-repo" },
+                { q: "When should you use synchronous vs asynchronous communication in microservices?", a: "<strong>Synchronous</strong><br>Use when immediate response required.<br>Examples: Login, Payment validation<br><br><strong>Asynchronous</strong><br>Use for background processing.<br>Examples: Email notifications, Report generation", code: "// Synchronous\nUser user = userClient.getUser(id);\n\n// Asynchronous\n@Async\nvoid sendEmail(Email email) { }" },
+                { q: "What role does containerization play in microservices?", a: "Containers package application with dependencies.<br><br><strong>Benefits</strong><br>• Portability<br>• Faster deployment<br>• Isolation<br>• Scalability<br><br><strong>Tools</strong><br>Docker, Kubernetes", code: "FROM openjdk:17\nCOPY target/app.jar app.jar\nENTRYPOINT [\"java\",\"-jar\",\"app.jar\"]" }
+            ]
+        },
+        { 
+            topic: "Deployment & Operations", 
+            icon: "fas fa-rocket", 
+            startNum: 20,
+            questions: [
+                { q: "What are the challenges of deploying microservices?", a: "• Managing many services<br>• Monitoring complexity<br>• Deployment coordination<br>• Networking issues<br>• Version compatibility", code: "// Use Helm charts for complex deployments\nhelm install my-microservice ./charts" },
+                { q: "Describe blue-green deployment and how it applies to microservices.", a: "<strong>Two environments:</strong><br>• Blue → Current production<br>• Green → New version<br><br>Traffic switches after validation.<br><br><strong>Benefits</strong><br>• Zero downtime<br>• Easy rollback", code: "# Kubernetes Service selector switch\nselector:\n  version: green  # Switch from blue to green" },
+                { q: "How does canary releasing work?", a: "Deploy new version to small users first.<br>If stable: Increase traffic gradually.<br><br><strong>Benefits</strong><br>• Reduced production risk<br>• Easy monitoring", code: "# Istio traffic splitting\nweight:\n  v1: 90\n  v2: 10" },
+                { q: "Explain Infrastructure as Code (IaC).", a: "Infrastructure managed using code.<br><br><strong>Tools</strong><br>• Terraform<br>• Ansible<br>• CloudFormation<br><br><strong>Benefits</strong><br>• Automation<br>• Repeatability<br>• Version control", code: "resource \"aws_instance\" \"app_server\" {\n  ami           = \"ami-0c55b159cbfafe1f0\"\n  instance_type = \"t2.micro\"\n}" },
+                { q: "Describe CI/CD pipelines in microservices.", a: "<strong>Pipeline Steps:</strong><br>1. Code Commit<br>2. Build<br>3. Unit Test<br>4. Docker Build<br>5. Deploy<br>6. Monitoring<br><br><strong>Tools</strong><br>Jenkins, GitHub Actions, GitLab CI", code: "# GitHub Actions\nname: CI/CD\non: push\njobs:\n  build:\n    steps:\n    - uses: actions/checkout@v2\n    - run: mvn clean package\n    - run: docker build -t myapp .\n    - run: docker push myapp" },
+                { q: "How do you monitor health and performance of microservices?", a: "<strong>Tools</strong><br>• Prometheus<br>• Grafana<br>• ELK Stack<br>• Splunk<br><br><strong>Metrics</strong><br>• CPU usage<br>• Memory usage<br>• Response time<br>• Error rate", code: "@Timed(value = \"api.duration\", percentiles = {0.5, 0.95})\n@GetMapping\npublic List<Order> getOrders() { }" }
+            ]
+        },
+        { 
+            topic: "Database & Data Patterns", 
+            icon: "fas fa-database", 
+            startNum: 26,
+            questions: [
+                { q: "How do you handle database schema changes?", a: "Use migration tools.<br><br><strong>Tools</strong><br>• Flyway<br>• Liquibase<br><br><strong>Best Practice:</strong> Backward compatible changes.", code: "// Flyway migration V2__add_column.sql\nALTER TABLE users ADD COLUMN middle_name VARCHAR(50);" },
+                { q: "Shared database vs database-per-service?", a: "<strong>Shared Database</strong><br>Pros: Easy joins<br>Cons: Tight coupling, Hard scaling<br><br><strong>Database Per Service</strong><br>Pros: Independent services, Better scalability<br>Cons: Complex queries", code: "// Database per service\nuser-service → user_db\norder-service → order_db" },
+                { q: "Explain Event Sourcing.", a: "Instead of storing current state, store all events.<br><br><strong>Example</strong><br>• Order Created<br>• Order Paid<br>• Order Shipped", code: "// Event store\n{\n  \"eventType\": \"OrderCreated\",\n  \"orderId\": 123,\n  \"amount\": 100,\n  \"timestamp\": \"2026-05-09\"\n}" },
+                { q: "What is CQRS?", a: "CQRS separates:<br>• Command operations (write)<br>• Query operations (read)<br><br><strong>Benefits</strong><br>• Better performance<br>• Independent scaling", code: "@RestController\npublic class OrderController {\n    @PostMapping\n    public void createOrder(@RequestBody Order order) { }\n    \n    @GetMapping\n    public OrderDTO getOrder(@PathVariable Long id) { }\n}" },
+                { q: "How to maintain consistency without distributed transactions?", a: "Use:<br>• Saga Pattern<br>• Kafka events<br>• Eventual consistency", code: "// Outbox pattern\n@Transactional\npublic void createOrder(Order order) {\n    orderRepo.save(order);\n    outboxRepo.save(new OutboxEvent(\"OrderCreated\", order));\n}" }
+            ]
+        },
+        { 
+            topic: "Security & Observability", 
+            icon: "fas fa-shield-alt", 
+            startNum: 31,
+            questions: [
+                { q: "How do you implement authentication and authorization in microservices?", a: "Commonly using:<br>• OAuth2<br>• JWT<br>• Spring Security<br><br><strong>JWT Example</strong>", code: "String token = Jwts.builder()\n        .setSubject(\"venkatesh\")\n        .signWith(key)\n        .compact();\n\n@PreAuthorize(\"hasRole('ADMIN')\")\npublic void deleteUser(Long id) { }" },
+                { q: "Common security concerns in inter-service communication?", a: "• Unauthorized access<br>• Data leakage<br>• Token misuse<br>• Man-in-the-middle attack<br><br><strong>Prevention</strong><br>• HTTPS<br>• mTLS<br>• JWT validation", code: "// mTLS configuration in Istio\napiVersion: security.istio.io/v1beta1\nkind: PeerAuthentication\nmetadata:\n  name: default\nspec:\n  mtls:\n    mode: STRICT" },
+                { q: "How would you use OAuth2 or JWT?", a: "1. User logs in<br>2. Auth server generates JWT<br>3. Client sends token<br>4. Services validate token", code: "@Bean\npublic JwtDecoder jwtDecoder() {\n    return NimbusJwtDecoder.withJwkSetUri(jwkSetUri).build();\n}" },
+                { q: "Mechanisms to prevent security breaches?", a: "• API Gateway security<br>• Rate limiting<br>• Encryption<br>• Logging<br>• Access control<br>• Vulnerability scanning", code: "// Rate limiting per client\nspring.cloud.gateway.routes[0].filters[0]=name: RequestRateLimiter" },
+                { q: "How do you protect sensitive data?", a: "• Encrypt data<br>• Use HTTPS<br>• Hash passwords<br>• Use Vault for secrets", code: "@Entity\npublic class User {\n    @JsonIgnore\n    private String password;\n    \n    @Column(columnDefinition = \"LONGBLOB\")\n    private byte[] encryptedData;\n}" }
+            ]
+        },
+        { 
+            topic: "Performance & Scalability", 
+            icon: "fas fa-chart-line", 
+            startNum: 36,
+            questions: [
+                { q: "How do you ensure a microservice is scalable?", a: "• Stateless services<br>• Load balancing<br>• Horizontal scaling<br>• Caching<br>• Database optimization", code: "// Kubernetes HPA\napiVersion: autoscaling/v2\nspec:\n  minReplicas: 3\n  maxReplicas: 20\n  metrics:\n  - type: Resource\n    resource:\n      name: cpu\n      target:\n        averageUtilization: 70" },
+                { q: "What metrics monitor microservice performance?", a: "• Response time<br>• Throughput<br>• CPU usage<br>• Memory usage<br>• Error percentage<br>• Availability", code: "@Timed(value = \"order.api.duration\", percentiles = {0.5, 0.95})\n@GetMapping\npublic List<Order> getOrders() { }" },
+                { q: "Strategies for handling high load?", a: "• Auto scaling<br>• Caching<br>• Queue systems<br>• CDN<br>• Load balancing", code: "# Redis cache configuration\nspring.cache.type=redis\nspring.redis.host=localhost\nspring.redis.port=6379" },
+                { q: "How do microservices handle load balancing?", a: "Traffic distributed across multiple instances.<br><br><strong>Types:</strong><br>• Client-side<br>• Server-side<br><br><strong>Tools:</strong> Nginx, Ribbon, Kubernetes", code: "# Kubernetes Service handles load balancing\napiVersion: v1\nkind: Service\nspec:\n  selector:\n    app: user-service\n  ports:\n  - port: 8080" }
+            ]
+        },
+        { 
+            topic: "Communication Protocols", 
+            icon: "fas fa-exchange-alt", 
+            startNum: 40,
+            questions: [
+                { q: "Message broker vs direct communication?", a: "<strong>Direct Communication</strong><br>• Fast response<br>• Tight coupling<br><br><strong>Message Broker</strong><br>• Better reliability<br>• Loose coupling<br>• Asynchronous<br><br><strong>Tools:</strong> Kafka, RabbitMQ", code: "// RabbitMQ example\nrabbitTemplate.convertAndSend(\"order.exchange\", \"order.created\", order);" },
+                { q: "REST vs gRPC?", a: "<strong>REST</strong><br>Pros: Easy to use, Human readable JSON<br>Cons: Slower<br><br><strong>gRPC</strong><br>Pros: High performance, Smaller payload<br>Cons: Complex debugging", code: "// gRPC proto file\nservice UserService {\n  rpc GetUser (UserRequest) returns (UserResponse) {}\n}" },
+                { q: "How would you implement API versioning?", a: "<strong>Methods:</strong><br>• URL Versioning<br>• Header Versioning<br><br><strong>Example</strong><br>/api/v1/users<br>/api/v2/users", code: "/api/v1/users\n/api/v2/users" },
+                { q: "Challenges of network latency?", a: "<strong>Problems:</strong><br>• Slow response<br>• Timeout failures<br>• Cascading failures<br><br><strong>Solutions</strong><br>• Caching<br>• Async communication<br>• gRPC<br>• Reduce service calls", code: "// Increase timeout and retry\n@Retry(name = \"service\")\n@Timeout(name = \"service\", limit = \"5s\")\npublic String callService() { }" },
+                { q: "Difference between message queues and event bus?", a: "<strong>Message Queue</strong><br>One consumer processes message.<br>Example: RabbitMQ<br><br><strong>Event Bus</strong><br>Multiple consumers receive events.<br>Example: Kafka", code: "// Message Queue - Point to point\nqueue.send(message);\n\n// Event Bus - Publish/Subscribe\neventBus.publish(event);" }
+            ]
+        },
+        { 
+            topic: "Resilience & Fault Tolerance", 
+            icon: "fas fa-heartbeat", 
+            startNum: 45,
+            questions: [
+                { q: "What is Transactional Outbox Pattern?", a: "Store event and database update in same transaction.<br>Later publish event safely.<br><br><strong>Benefits:</strong> Avoid data inconsistency", code: "@Transactional\npublic void placeOrder(Order order) {\n    orderRepository.save(order);\n    outboxRepository.save(new OutboxEvent(order));\n}\n\n// Poll and publish\n@Scheduled\npublic void publishEvents() { }" },
+                { q: "How would you design a fault-tolerant microservice?", a: "Use:<br>• Retry<br>• Circuit Breaker<br>• Timeout<br>• Fallback<br>• Replication<br>• Monitoring", code: "@Retry(name = \"service\", fallbackMethod = \"fallback\")\n@CircuitBreaker(name = \"service\")\n@Bulkhead(name = \"service\", type = Bulkhead.Type.THREADPOOL)\npublic String callService() { }" },
+                { q: "Importance of timeout and retry logic?", a: "<strong>Timeout</strong><br>Stops waiting forever.<br><br><strong>Retry</strong><br>Retries temporary failures.", code: "@Retry(name = \"paymentService\")\npublic String payment() {\n    return \"success\";\n}\n\n@Timeout(name = \"service\", limit = \"3s\")\npublic String call() { }" },
+                { q: "Strategies for high availability?", a: "• Multiple instances<br>• Load balancing<br>• Auto scaling<br>• Database replication<br>• Failover mechanisms", code: "# Kubernetes multi-region deployment\nreplicas: 5\npodAntiAffinity:\n  requiredDuringScheduling:\n    - labelSelector:\n        matchExpressions:\n        - key: app\n          operator: In\n          values: [myapp]\n      topologyKey: kubernetes.io/hostname" },
+                { q: "How do you approach disaster recovery?", a: "• Database backup<br>• Multi-region deployment<br>• Replication<br>• Automated recovery", code: "# Database backup cron\n0 2 * * * pg_dump mydb > /backups/mydb_$(date +\\%Y\\%m\\%d).sql" },
+                { q: "How would you handle cascading failure?", a: "Use:<br>• Circuit Breaker<br>• Timeout<br>• Retry limits<br>• Bulkhead pattern", code: "@Bulkhead(name = \"service\", type = Bulkhead.Type.THREADPOOL, corePoolSize = 10, maxPoolSize = 20)\n@CircuitBreaker(name = \"service\")\npublic String callService() { }" }
+            ]
+        },
+        { 
+            topic: "Logging, Tracing & Monitoring", 
+            icon: "fas fa-search", 
+            startNum: 51,
+            questions: [
+                { q: "Logging practices in distributed systems?", a: "Use centralized logging.<br><br><strong>Tools</strong><br>• ELK Stack<br>• Splunk<br>• Graylog<br><br><strong>Best Practice:</strong> Use correlation ID.", code: "// Spring Sleuth adds trace IDs\n@Slf4j\n@Service\npublic class OrderService {\n    public void process() {\n        log.info(\"Processing order\"); // Includes traceId, spanId\n    }\n}" },
+                { q: "How do you trace requests across services?", a: "Use distributed tracing.<br><br><strong>Tools</strong><br>• Zipkin<br>• Jaeger<br>• Sleuth", code: "spring.zipkin.baseUrl=http://zipkin:9411\nspring.sleuth.sampler.probability=1.0" },
+                { q: "Importance of metrics and alerts?", a: "Helps identify:<br>• Failures<br>• Slow APIs<br>• High memory usage<br>• Downtime", code: "// Prometheus alerting rule\n- alert: HighErrorRate\n  expr: rate(http_requests_total{status=~\"5..\"}[5m]) > 0.05\n  for: 2m\n  annotations:\n    summary: \"High error rate detected\"" },
+                { q: "How do you handle performance bottlenecks?", a: "• Profiling<br>• Database optimization<br>• Caching<br>• Async processing<br>• Query tuning", code: "// JVM profiling with async profiler\njava -agentpath:libasyncProfiler.so=start,event=cpu,file=profile.html -jar app.jar" },
+                { q: "What is distributed tracing?", a: "Tracks request flow across services.<br><br><strong>Tools</strong><br>• Jaeger<br>• Zipkin<br>• OpenTelemetry", code: "// Trace visualized\nUserService (200ms) → OrderService (150ms) → PaymentService (100ms)" }
+            ]
+        },
+        { 
+            topic: "Docker & Kubernetes", 
+            icon: "fab fa-docker", 
+            startNum: 56,
+            questions: [
+                { q: "Explain Docker role in microservices.", a: "Docker packages application with all dependencies.<br><br><strong>Benefits</strong><br>• Consistent environments<br>• Easy deployment<br>• Fast startup<br><br><strong>Dockerfile Example</strong>", code: "FROM openjdk:17\nCOPY target/app.jar app.jar\nENTRYPOINT [\"java\",\"-jar\",\"app.jar\"]" },
+                { q: "How does Kubernetes help microservices?", a: "Kubernetes manages containers.<br><br><strong>Features</strong><br>• Auto scaling<br>• Self healing<br>• Load balancing<br>• Rolling updates", code: "kubectl scale deployment user-service --replicas=5\nkubectl rollout status deployment/user-service" },
+                { q: "Describe container lifecycle.", a: "<strong>Steps:</strong><br>1. Build image<br>2. Create container<br>3. Run container<br>4. Scale container<br>5. Stop container<br>6. Remove container", code: "docker build -t myapp .\ndocker run -d -p 8080:8080 myapp\ndocker stop container_id\ndocker rm container_id" },
+                { q: "How do you ensure containers are secure?", a: "• Use minimal images<br>• Scan vulnerabilities<br>• Update dependencies<br>• Avoid root user<br>• Use secrets management", code: "# Docker security best practices\nUSER nonroot\nRUN apt-get update && apt-get install -y --no-install-recommends\n# Use distroless images\nFROM gcr.io/distroless/java17" },
+                { q: "Best practices for container networking?", a: "• Use service discovery<br>• Secure communication<br>• Use Kubernetes networking<br>• Apply network policies<br>• Use API Gateway", code: "# Kubernetes NetworkPolicy\nkind: NetworkPolicy\napiVersion: networking.k8s.io/v1\nmetadata:\n  name: deny-all\nspec:\n  podSelector: {}\n  policyTypes:\n  - Ingress" }
+            ]
+        }
+    ];
+
+    const root = document.getElementById("qaRoot");
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function renderAll() {
+        root.innerHTML = '';
+        
+        topicsData.forEach(topic => {
+            const card = document.createElement('div');
+            card.className = 'topic-card';
+            
+            const header = document.createElement('div');
+            header.className = 'topic-header';
+            header.innerHTML = `<h2><i class="${topic.icon}"></i> ${topic.topic}</h2><i class="fas fa-chevron-down toggle-icon"></i>`;
+            
+            const container = document.createElement('div');
+            container.className = 'questions-container';
+            container.style.display = 'block';
+            
+            topic.questions.forEach((qa, idx) => {
+                const block = document.createElement('div');
+                block.className = 'qa-block';
+                const qNum = topic.startNum + idx;
+                
+                block.innerHTML = `
+                    <div class="question"><span class="q-num">${qNum}</span> <strong>${escapeHtml(qa.q)}</strong></div>
+                    <div class="answer">
+                        ${qa.a}
+                        <div class="code-block">
+                            <div class="code-header"><i class="fas fa-terminal"></i> Example / Code</div>
+                            <pre><code>${escapeHtml(qa.code)}</code></pre>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(block);
+            });
+            
+            card.appendChild(header);
+            card.appendChild(container);
+            
+            header.addEventListener('click', () => {
+                const isVisible = container.style.display !== 'none';
+                container.style.display = isVisible ? 'none' : 'block';
+                const icon = header.querySelector('.toggle-icon');
+                icon.className = isVisible ? 'fas fa-chevron-right toggle-icon' : 'fas fa-chevron-down toggle-icon';
+            });
+            
+            root.appendChild(card);
+        });
+    }
+    
+    renderAll();
+</script>
+</body>
+</html>
